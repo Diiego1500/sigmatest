@@ -1,0 +1,59 @@
+@import "~bootstrap";
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.woff2') format('woff2'),
+    url('../fonts/Roboto-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Bold.woff2') format('woff2'),
+    url('../fonts/Roboto-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Roboto';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.radius-and-shadow{
+    -webkit-border-radius: 30px;
+    -webkit-border-top-left-radius: 15px;
+    -moz-border-radius: 30px;
+    -moz-border-radius-topleft: 15px;
+    border-radius: 30px;
+    border-top-left-radius: 15px;
+
+    -webkit-box-shadow: 1px 2px 15px -4px rgba(153,153,153,1);
+    -moz-box-shadow: 1px 2px 15px -4px rgba(153,153,153,1);
+    box-shadow: 1px 2px 15px -4px rgba(153,153,153,1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-style: normal;
+}
+
+p{
+    color:#717171;
+    font-size: 0.9em;
+    width: 65%;
+}
+
+#contacts_Save {
+    background-color: #E03B65;
+    color: white;
+    display: inline-block;
+    border-radius: 16px;
+    outline: none;
+    border-color:#E03B65;
+}
