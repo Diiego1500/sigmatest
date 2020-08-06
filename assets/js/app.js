@@ -46,34 +46,55 @@ $('#contacts_Save').click(function () {
         onBeforeOpen: function () {
             Swal.showLoading()
             return new Promise(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: Path,
-                    data: (params),
-                    async: true,
-                    dataType: "json",
-                    success: function (data) {
-                        if(data['success']==true){
-                            Swal.fire({
-                                icon: 'ersuccessror',
-                                title: '¡Buen trabajo!',
-                                text: 'Tu información ha sido recibida satisfactoriamente',
-                                footer: '<a href="'+contacts_path+'">Ver contactos</a>'
-                            })
-                        }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Algo no funcionó como esperabamos',
-                                footer: 'Estamos mejorando para tí.'
-                            })
-                        }
-                        $('#contacts_state').val('');
-                        remove_options();
-                        $('#contacts_name').val('');
-                        $('#contacts_email').val('');
+                if(name.length>50 || email.length>30){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El nombre debe tener máximo 50 caracteres y el Email Máximo 30. Recuerde llenar todos los campos',
+                        footer: 'Estamos trabajando para tí'
+                    })
+                }
+                else{
+                    if(isEmail(email)){
+                        $.ajax({
+                            type: 'POST',
+                            url: Path,
+                            data: (params),
+                            async: true,
+                            dataType: "json",
+                            success: function (data) {
+                                if(data['success']==true){
+                                    Swal.fire({
+                                        icon: 'ersuccessror',
+                                        title: '¡Buen trabajo!',
+                                        text: 'Tu información ha sido recibida satisfactoriamente',
+                                        footer: '<a href="'+contacts_path+'">Ver contactos</a>'
+                                    })
+                                }else{
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Algo no funcionó como esperabamos',
+                                        footer: 'Estamos mejorando para tí.'
+                                    })
+                                }
+                                $('#contacts_state').val('');
+                                remove_options();
+                                $('#contacts_name').val('');
+                                $('#contacts_email').val('');
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Ingrese un Email válido',
+                            footer: 'Estamos trabajando para tí'
+                        })
                     }
-                });
+
+                }
+
             })
         }
     });
@@ -84,9 +105,14 @@ function remove_options() {
 }
 
 function add_options(item) {
-    console.log(typeof(item))
     var opt = document.createElement('option');
     opt.appendChild(document.createTextNode(item));
     opt.value = item;
     return opt;
+}
+
+
+function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
 }
