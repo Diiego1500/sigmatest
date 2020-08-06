@@ -1,13 +1,13 @@
 import '../css/app.css';
 import $ from 'jquery';
 import 'bootstrap';
+import Swal from 'sweetalert2'
+
 var DATA= null;
 
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min';
 Routing.setRoutingData(routes);
-
-
 
 $(document).ready(function() {
     var select_states = document.getElementById('contacts_state');
@@ -38,18 +38,45 @@ $('#contacts_Save').click(function () {
     var name = $('#contacts_name').val();
     var email = $('#contacts_email').val();
     var params = {state:state, city:city, name:name, email:email};
-    $.ajax({
-        type: 'POST',
-        url: Path,
-        data: (params),
-        async: true,
-        dataType: "json",
-        success: function (data) {
-            console.log(data['success'])
+    Swal.fire({
+        title: 'Espere',
+        text: 'Estamos guardando su información',
+        showConfirmButton: false,
+        onBeforeOpen: function () {
+            Swal.showLoading()
+            return new Promise(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: Path,
+                    data: (params),
+                    async: true,
+                    dataType: "json",
+                    success: function (data) {
+                        if(data['success']==true){
+                            Swal.fire(
+                                '!Buen trabajo!',
+                                'Tu información ha sido recibida satisfactoriamente',
+                                'success'
+                            );
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Algo no funcionó como esperabamos',
+                                footer: 'Estamos mejorando para tí.'
+                            })
+                        }
+                        var state = $('#contacts_state').val('');
+                        remove_options();
+                        var name = $('#contacts_name').val('');
+                        var email = $('#contacts_email').val('');
+
+                    }
+                });
+            })
         }
-    })
-    ;
-})
+    });
+});
 
 function remove_options() {
     $('#contacts_city').find('option').remove().end().append('<option value="">Seleccione una ciudad</option>');
