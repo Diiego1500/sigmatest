@@ -19,6 +19,14 @@ class ContactsRepository extends ServiceEntityRepository
         parent::__construct($registry, Contacts::class);
     }
 
+    public function findAllContacts(){
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT contact
+                FROM App:Contacts contact
+                ORDER BY contact.id DESC
+            ');
+    }
     // /**
     //  * @return Contacts[] Returns an array of Contacts objects
     //  */

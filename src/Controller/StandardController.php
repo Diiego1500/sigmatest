@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contacts;
 use App\Form\ContactsType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,10 +28,15 @@ class StandardController extends AbstractController
     /**
      * @Route("/contacts/", options={"expose"=true}, name="contacts")
      */
-    public function contacts(){
+    public function contacts(Request $request, PaginatorInterface $paginator){
         $em = $this->getDoctrine()->getManager();
-        $contacts = $em->getRepository(Contacts::class)->findAll();
-        return $this->render('standard/contacts.html.twig',['contacts'=>$contacts]);
+        $query = $em->getRepository(Contacts::class)->findAllContacts();
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+        return $this->render('standard/contacts.html.twig',['pagination'=>$pagination]);
     }
 
     /**
