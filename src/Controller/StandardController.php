@@ -25,6 +25,15 @@ class StandardController extends AbstractController
     }
 
     /**
+     * @Route("/contacts/", options={"expose"=true}, name="contacts")
+     */
+    public function contacts(){
+        $em = $this->getDoctrine()->getManager();
+        $contacts = $em->getRepository(Contacts::class)->findAll();
+        return $this->render('standard/contacts.html.twig',['contacts'=>$contacts]);
+    }
+
+    /**
      * @Route("ajax/save_contact/", options={"expose"=true}, name="save_contact")
      */
     public function save_contact(Request $request){

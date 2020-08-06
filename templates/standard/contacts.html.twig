@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Contactos{% endblock %}
+
+{% block body %}
+    <div class="container text-center">
+        <img class="mt-5" src="{{ asset('build/images/sigma-logo.png') }}" alt="sigma-logo" width="17%">
+        <h3 class="my-4">Prueba de desarrollo Sigma</h3>
+        <div>
+            <p class="mx-auto">
+                <a href="{{ path('index') }}">inicio</a>
+            </p>
+        </div>
+
+        <table class="table table-responsive-sm">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Departamento</th>
+                <th>Ciudad</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.state }}</td>
+                    <td>{{ contact.city }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

@@ -33,6 +33,7 @@ $('#contacts_state').change(function () {
 
 $('#contacts_Save').click(function () {
     var Path = Routing.generate('save_contact');
+    var contacts_path = Routing.generate('contacts');
     var state = $('#contacts_state').val();
     var city = $('#contacts_city').val();
     var name = $('#contacts_name').val();
@@ -53,11 +54,12 @@ $('#contacts_Save').click(function () {
                     dataType: "json",
                     success: function (data) {
                         if(data['success']==true){
-                            Swal.fire(
-                                '!Buen trabajo!',
-                                'Tu información ha sido recibida satisfactoriamente',
-                                'success'
-                            );
+                            Swal.fire({
+                                icon: 'ersuccessror',
+                                title: '¡Buen trabajo!',
+                                text: 'Tu información ha sido recibida satisfactoriamente',
+                                footer: '<a href="'+contacts_path+'">Ver contactos</a>'
+                            })
                         }else{
                             Swal.fire({
                                 icon: 'error',
@@ -66,11 +68,10 @@ $('#contacts_Save').click(function () {
                                 footer: 'Estamos mejorando para tí.'
                             })
                         }
-                        var state = $('#contacts_state').val('');
+                        $('#contacts_state').val('');
                         remove_options();
-                        var name = $('#contacts_name').val('');
-                        var email = $('#contacts_email').val('');
-
+                        $('#contacts_name').val('');
+                        $('#contacts_email').val('');
                     }
                 });
             })
