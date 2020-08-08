@@ -11,7 +11,7 @@ Routing.setRoutingData(routes);
 
 $(document).ready(function() {
     var select_states = document.getElementById('contacts_state');
-    $.getJSON('https://sigma-studios.s3-us-west-2.amazonaws.com/test/colombia.json', function(data) {
+    $.getJSON('https://cors-anywhere.herokuapp.com/https://sigma-studios.s3-us-west-2.amazonaws.com/test/colombia.json', function(data) {
         DATA = data;
         for (var state in data) {
             var opt = add_options(state);
