@@ -162,20 +162,7 @@ A continuación puedes instalar COMPOSER para el gestor de datos de Symfony:
 https://styde.net/instalacion-de-composer-y-laravel-en-ubuntu-14-lts-paso-a-paso/
 
 Necesitamos instalar NODE, así que debemos configurar la carpeta de instalación: 
-
-https://lignux.com/tutorial-para-solucionar-no-se-pudo-bloquear-varlibdpkglock-open-11-recurso-no-disponible-temporalmente/
-
-sudo fuser -vki  /var/lib/dpkg/lock
-sudo rm -f /var/lib/dpkg/lock
-sudo dpkg --configure -a
-sudo apt-get autoremove
-
-Seguidamente instalamos NODE:
-
-sudo apt update
-sudo apt install nodejs
-sudo apt install npm
-
+VISITAR: https://www.freecodecamp.org/news/how-to-install-node-js-on-ubuntu-and-update-npm-to-the-latest-version/#:~:text=5%2C%20%7B%20npm%3A%20'6.14,command%20above%20to%20update%20it.
 
 ===INSTALAR YARN===
 https://linuxize.com/post/how-to-install-yarn-on-ubuntu-18-04/
